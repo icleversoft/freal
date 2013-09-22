@@ -11,7 +11,21 @@ gem 'devise'
 gem 'figaro'
 gem 'haml-rails'
 gem 'mongoid'
+
+
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
+#Google Maps for rails
+gem 'gmaps4rails'
+
+gem 'geocoder' #https://github.com/alexreisner/geocoder
+
 group :development do
+  gem 'sqlite3'
+  gem 'sequel'
+
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'html2haml'
