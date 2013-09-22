@@ -1,0 +1,10 @@
+%table.table.table-striped
+  %ul.unstyled
+    -municipals.each_with_index do |mun, index|
+      %li
+        %strong=index + 1 
+        %span . 
+        %span= mun.name 
+        %em="(#{mun.code}), "
+        %span=link_to "#{mun.cities.count} Πόλεις(-η)", cities_admin_municipality_url(mun.id), :remote => true
+        #cities{:id=>mun.id}

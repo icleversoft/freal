@@ -1,0 +1,2 @@
+:plain
+  $("#cities_#{@mun.id}").html("<ul class='inline'>#{escape_javascript(render :partial => 'admin/cities/city', :collection => @cities)}</ul>")

@@ -1,0 +1,8 @@
+%h3=@county.name
+%span Κωδικός
+%strong=@county.code
+%br
+%span Δήμοι
+%span="(#{@muns.count})"
+%hr
+=render :partial => 'municipals', :object => @muns.sort{|a,b| a.name <=> b.name}

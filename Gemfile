@@ -22,6 +22,9 @@ gem 'gmaps4rails'
 
 gem 'geocoder' #https://github.com/alexreisner/geocoder
 
+gem 'simple_form'
+gem 'kaminari-bootstrap'
+
 group :development do
   gem 'sqlite3'
   gem 'sequel'

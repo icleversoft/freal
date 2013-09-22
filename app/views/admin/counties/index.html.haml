@@ -1,0 +1,5 @@
+%table.table.table-striped
+  %caption 
+    %h3 Νομοί
+  =render :partial => 'county', :collection => @counties
+%p=paginate @counties
