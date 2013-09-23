@@ -10,4 +10,5 @@ class City
   field :location, type: Array
   
   belongs_to :municipality
+  has_many :stations, :dependent => :destroy
 end
