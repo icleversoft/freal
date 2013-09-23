@@ -24,6 +24,7 @@ gem 'geocoder' #https://github.com/alexreisner/geocoder
 
 gem 'simple_form'
 gem 'kaminari-bootstrap'
+gem 'nokogiri'
 
 group :development do
   gem 'sqlite3'
