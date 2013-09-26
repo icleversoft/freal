@@ -2,7 +2,12 @@ class Station
   include Mongoid::Document
   include Mongoid::Timestamps
   include Geocoder::Model::Mongoid
-  FUEL_TYPES = (1..6).to_a
+  FUEL_TYPES = { "1" => "Unleaded", 
+                 "2" => "Unleaded-100", 
+                 "3" => "Super", 
+                 "4" => "Diesel", 
+                 "5" => "Diesel Heat", 
+                 "6" => "Gas"}
   #1:Unleaded, 2:Unleaded-100 3:Super 4:Diesel 5:Diesel-Heat 6:Gas
 
   field :name

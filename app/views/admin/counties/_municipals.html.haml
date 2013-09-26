@@ -4,7 +4,11 @@
       %li
         %strong=index + 1 
         %span . 
-        %span= mun.name 
-        %em="(#{mun.code}), "
+        %span= link_to mun.name, mun.url_for_fueltype
+        %em="(#{mun.code})"
         %span=link_to "#{mun.cities.count} Πόλεις(-η)", cities_admin_municipality_url(mun.id), :remote => true
         #cities{:id=>mun.id}
+        -Station::FUEL_TYPES.each do |k, v|
+          %span=link_to "#{v} |", mun.url_for_fueltype(k.to_i)
+   
+      %hr

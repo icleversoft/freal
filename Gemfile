@@ -26,6 +26,8 @@ gem 'simple_form'
 gem 'kaminari-bootstrap'
 gem 'nokogiri'
 
+gem 'fuelprices', :path => 'mygems/fuelprices'
+
 group :development do
   gem 'sqlite3'
   gem 'sequel'

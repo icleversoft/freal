@@ -8,6 +8,11 @@ GIT
       rails (>= 3.1)
       railties (>= 3.1)
 
+PATH
+  remote: mygems/fuelprices
+  specs:
+    fuelprices (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -247,6 +252,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   figaro
+  fuelprices!
   geocoder
   gmaps4rails
   haml-rails
