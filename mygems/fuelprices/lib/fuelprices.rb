@@ -1,5 +1,6 @@
 require "fuelprices/version"
 require 'iconv'
+require 'open-uri'
 #d=Nokogiri::HTML(open('http://www.fuelprices.gr/CheckPrices?DD=A1140100&prodclass=1'))
 #entries = d.search("td[@class='mainArea']/table")
 # if entries.size > 2
@@ -20,7 +21,6 @@ module Fuelprices
       @submit_datetime = Time.now
       
       unless data.empty?
-        data.collect!{|i| i.strip}
         if data.size > 10
           #Price
           process_price( data[2].inner_text )
@@ -51,9 +51,8 @@ module Fuelprices
     end
     
     def process_text( text )
-      text '-'
       parts = text.split(':').collect{|i| i.strip}
-      text = parts[1] if parts.size == 2
+      text = parts.size == 2 ? parts[1] : '-'
       text
     end
     
@@ -63,7 +62,7 @@ module Fuelprices
         #Get company
         @company = parts[0].strip
         @company.gsub!('&amp;', '&')
-        parts = parts.split(': ')
+        parts = parts[1].split(': ')
         if parts.size == 2
           @submit_datetime = parts[1].strip
         end
@@ -78,25 +77,28 @@ module Fuelprices
       
       unless codes.empty?
         begin
-          doc = open("#{BASE_URL}#{codes.collect!{|i| "DD=#{i}"}.join('&')}&podclass=#{fuel_type}")
+          url = "#{BASE_URL}#{codes.collect{|i| "DD=#{i}"}.join('&')}&prodclass=#{fuel_type}"
+          p url
+          doc = open( url )
+          
           unless doc.nil?
             doc = Iconv.conv('utf-8', 'iso-8859-7', doc.read.to_s)
             unless doc.empty?
               doc = Nokogiri::HTML( doc ) 
               entries = doc.search("td[@class='mainArea']/table")
+              p entries.size
               if entries.size > 2
                 2.times do
                   entries.delete(entries.first)
-                  
-                  entries.each do |e|
-                    @stations << Station.new( e.search("tr/td") )
-                  end
-                  
+                end
+                entries.each do |e|
+                  @stations << Station.new( e.search("tr/td") )
                 end
               end
             end
           end
-        rescue
+        rescue => e
+          p e.message
         end
       end
     
