@@ -27,6 +27,7 @@ gem 'kaminari-bootstrap'
 gem 'nokogiri'
 
 gem 'fuelprices', :path => 'mygems/fuelprices'
+gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
 
 group :development do
   gem 'sqlite3'

@@ -18,7 +18,7 @@ module Fuelprices
       @firm = '-'
       @address = '-'
       @company = '-'
-      @submit_datetime = Time.now
+      @submit_datetime = '-'
       
       unless data.empty?
         if data.size > 10
@@ -68,6 +68,16 @@ module Fuelprices
         end
       end
     end
+
+    # def company
+    #   ret = @company
+    #   begin
+    #     ret = Iconv.conv('utf-8', 'iso-8859-7', ret)
+    #   rescue
+    #     ret = @company
+    #   end
+    #   ret
+    # end    
   end
   
   class Parser
@@ -82,7 +92,8 @@ module Fuelprices
           doc = open( url )
           
           unless doc.nil?
-            doc = Iconv.conv('utf-8', 'iso-8859-7', doc.read.to_s)
+            doc = doc.read.to_s
+            # doc = Iconv.conv('utf-8', 'windows-1253', doc.read.to_s)
             unless doc.empty?
               doc = Nokogiri::HTML( doc ) 
               entries = doc.search("td[@class='mainArea']/table")

@@ -13,6 +13,11 @@ PATH
   specs:
     fuelprices (0.0.1)
 
+PATH
+  remote: mygems/greek_tokenizer
+  specs:
+    greek_tokenizer (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -255,6 +260,7 @@ DEPENDENCIES
   fuelprices!
   geocoder
   gmaps4rails
+  greek_tokenizer!
   haml-rails
   html2haml
   hub

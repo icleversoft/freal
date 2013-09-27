@@ -6,7 +6,8 @@ class Municipality
   field :code
   
   belongs_to :county
-  has_many :cities, dependent: :destroy
+  has_many :cities, :dependent => :destroy
+  has_one :topstat, :dependent => :destroy
   
   def city_codes
     self.cities.map{|city| city.code}
