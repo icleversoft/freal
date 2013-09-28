@@ -5,7 +5,8 @@ class Owner
     
   field :name
   field :slug
-  has_many :stations, :dependent => :destroy
+  has_many :stations, :class_name => 'Station', :dependent => :destroy, :foreign_key => 'station_id'
+  index({ slug: 1 }, { unique: true, name: "slug_owner_index" })
   
   def set_slug
     self.slug = self.name.gr_normalize.gr_downcase

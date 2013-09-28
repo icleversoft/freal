@@ -1,5 +1,4 @@
 require "fuelprices/version"
-require 'iconv'
 require 'open-uri'
 #d=Nokogiri::HTML(open('http://www.fuelprices.gr/CheckPrices?DD=A1140100&prodclass=1'))
 #entries = d.search("td[@class='mainArea']/table")
@@ -11,8 +10,10 @@ require 'open-uri'
 module Fuelprices
   BASE_URL = "http://www.fuelprices.gr/CheckPrices?"
   class Station
-    attr_accessor :price, :fuel_type, :firm, :address, :company, :submit_datetime
-    def initialize( data )
+    attr_accessor :price, :fuel_type, :firm, :address, :company, :submit_datetime, :code, :ft
+    def initialize( area, data, ft )
+      @code = area
+      @ft = ft
       @price = 0.0
       @fuel_type = '-'
       @firm = '-'
@@ -26,7 +27,7 @@ module Fuelprices
           process_price( data[2].inner_text )
           
           #Fuel type
-          @fuel_type = data[4].inner_text.strip
+          @fuel_type = data[4].inner_text.strip.encode("UTF-8") unless data[4].inner_text.strip.nil?
           
           #Firm
           @firm = process_text( data[5].inner_text )
@@ -53,6 +54,7 @@ module Fuelprices
     def process_text( text )
       parts = text.split(':').collect{|i| i.strip}
       text = parts.size == 2 ? parts[1] : '-'
+      text = text.encode("UTF-8") unless text.nil?
       text
     end
     
@@ -62,9 +64,11 @@ module Fuelprices
         #Get company
         @company = parts[0].strip
         @company.gsub!('&amp;', '&')
+        @company = @company.encode("UTF-8") unless @company.nil?
         parts = parts[1].split(': ')
         if parts.size == 2
           @submit_datetime = parts[1].strip
+          @submit_datetime = @submit_datetime.encode("UTF-8") unless @submit_datetime.nil?
         end
       end
     end
@@ -82,7 +86,7 @@ module Fuelprices
   
   class Parser
     attr_accessor :stations
-    def initialize( codes = [], fuel_type = 1)
+    def initialize( area, codes = [], fuel_type = 1)
       @stations = []
       
       unless codes.empty?
@@ -103,7 +107,7 @@ module Fuelprices
                   entries.delete(entries.first)
                 end
                 entries.each do |e|
-                  @stations << Station.new( e.search("tr/td") )
+                  @stations << Station.new( area, e.search("tr/td"), fuel_type )
                 end
               end
             end
