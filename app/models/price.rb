@@ -7,6 +7,7 @@ class Price
   field :fuel_type, :type => Integer
   field :submitted
   field :slug
+  field :fuel_description
   
   index({ slug: 1 }, { unique: true, name: "slug_price_index" })
   
@@ -20,7 +21,7 @@ class Price
     pr = Price.where(:slug => sl).first
     return unless pr.nil?
 
-    pr = Price.new(:price => station.price.to_f, :fuel_type =>station.ft, :submitted => station.submit_datetime)
+    pr = Price.new(:price => station.price.to_f, :fuel_type =>station.ft, :submitted => station.submit_datetime, :fuel_description => station.fuel_type)
     pr.station = Station.station_for_data( station )
     pr.save    
   end
