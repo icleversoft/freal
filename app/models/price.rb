@@ -14,16 +14,17 @@ class Price
   belongs_to :station
   
   def self.insert_data_for_station( station )
-    return if station.price.to_f == 0
+    return 0 if station.price.to_f == 0
       
     sl = "#{station.code.gr_normalize.gr_downcase}-#{station.company.gr_normalize.gr_downcase}-#{station.firm.gr_normalize.gr_downcase}-#{station.submit_datetime.gr_normalize.gr_downcase}-#{station.ft}"
     p sl
     pr = Price.where(:slug => sl).first
-    return unless pr.nil?
+    return 0 unless pr.nil?
 
     pr = Price.new(:price => station.price.to_f, :fuel_type =>station.ft, :submitted => station.submit_datetime, :fuel_description => station.fuel_type)
     pr.station = Station.station_for_data( station )
-    pr.save    
+    pr.save  
+    return 1  
   end
   
   def set_slug

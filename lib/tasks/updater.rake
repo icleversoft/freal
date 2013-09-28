@@ -2,16 +2,22 @@ namespace :updater do
   desc "Get prices for all popular municipalities"
   task :price => :environment do
     queue = Topstat.all.desc(:hits).map{|i| i.municipality}
+    ac = Activity.new
+    
     queue.each do |m|
+      count = 0
       [1, 2, 4, 5, 6].each do |fuel_type|
           puts "Getting prices for codes:#{m.city_codes.join(',')}..."
           stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
           stations.each do |st|
-            Price.insert_data_for_station( st )
+            count = count + Price.insert_data_for_station( st )
           end
         sleep 1
       end
     end
+    
+    ac.count = count
+    ac.save
   end  
   
   desc "Get price for a specific municipality"
