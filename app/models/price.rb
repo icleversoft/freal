@@ -13,7 +13,9 @@ class Price
   belongs_to :station
   
   def self.insert_data_for_station( station )
-    sl = "#{station.company.gr_normalize.gr_downcase}-#{station.submit_datetime.gr_normalize.gr_downcase}-#{station.fuel_type.gr_normalize.gr_downcase}"
+    return if station.price.to_f == 0
+      
+    sl = "#{station.code.gr_normalize.gr_downcase}-#{station.company.gr_normalize.gr_downcase}-#{station.firm.gr_normalize.gr_downcase}-#{station.submit_datetime.gr_normalize.gr_downcase}-#{station.ft}"
     p sl
     pr = Price.where(:slug => sl).first
     return unless pr.nil?
@@ -24,7 +26,7 @@ class Price
   end
   
   def set_slug
-    self.slug = "#{self.station.firm.gr_normalize.gr_downcase}-#{self.submitted.gr_normalize.gr_downcase}-#{self.fuel_type}"
+    self.slug = "#{self.station.city.code.gr_normalize.gr_downcase}-#{self.station.owner.name.gr_normalize.gr_downcase}-#{self.station.firm.gr_normalize.gr_downcase}-#{self.submitted.gr_normalize.gr_downcase}-#{self.fuel_type}"
   end
   def fuel
     Station::FUEL_TYPES[self.fuel_type.to_s]

@@ -25,12 +25,13 @@ class Station
   def set_slug
     a1 = self.address.gr_normalize.gr_downcase unless self.address.nil?
     a2 = self.firm.gr_normalize.gr_downcase unless self.firm.nil?
-    self.slug = "#{a1}-#{a2}"
+    self.slug = "#{self.city.code.gr_normalize.gr_downcase}-#{a1}-#{a2}"
   end
   
   def self.station_for_data( station_data )
-    sl = "#{station_data.address.gr_normalize.gr_downcase}-#{station_data.firm.gr_normalize.gr_downcase}"
+    sl = "#{station_data.code.gr_normalize.gr_downcase}-#{station_data.address.gr_normalize.gr_downcase}-#{station_data.firm.gr_normalize.gr_downcase}"
     st = Station.where(:slug => sl).first
+    st.touch
     if st.nil?
       ct = Municipality.where(:code => station_data.code).first
       st = Station.create!(:address => station_data.address, :owner => Owner.find_or_create( station_data.company ), :firm => station_data.firm, :city => ct)
