@@ -25,7 +25,7 @@ namespace :updater do
     end
     
     ac.count = count
-    ac.save
+    ac.save if count > 0
   end  
   
   desc "Get price for a specific municipality"
