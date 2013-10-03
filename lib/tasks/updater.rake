@@ -4,13 +4,21 @@ namespace :updater do
     queue = Topstat.all.desc(:hits).map{|i| i.municipality}
     ac = Activity.new
     
-    queue.each do |m|
-      count = 0
+    count = 0
+    # queue.each do |m|
+    while queue.size > 0
+      m = queue.first
       [1, 2, 4, 5, 6].each do |fuel_type|
-          puts "Getting prices for codes:#{m.city_codes.join(',')}..."
-          stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
-          stations.each do |st|
-            count = count + Price.insert_data_for_station( st )
+          begin
+            puts "Getting prices for codes:#{m.city_codes.join(',')}..."
+            stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
+            stations.each do |st|
+              count = count + Price.insert_data_for_station( st, ac )
+            end
+            queue.delete_at(0)
+          rescue => e
+            puts "An error occured :#{e.message}"
+            puts "Retrying..."
           end
         sleep 1
       end

@@ -12,8 +12,9 @@ class Price
   index({ slug: 1 }, { unique: true, name: "slug_price_index" })
   
   belongs_to :station
+  belongs_to :activity
   
-  def self.insert_data_for_station( station )
+  def self.insert_data_for_station( station, activity )
     return 0 if station.price.to_f == 0
       
     sl = "#{station.code.gr_normalize.gr_downcase}-#{station.company.gr_normalize.gr_downcase}-#{station.firm.gr_normalize.gr_downcase}-#{station.submit_datetime.gr_normalize.gr_downcase}-#{station.ft}"
@@ -23,6 +24,7 @@ class Price
 
     pr = Price.new(:price => station.price.to_f, :fuel_type =>station.ft, :submitted => station.submit_datetime, :fuel_description => station.fuel_type)
     pr.station = Station.station_for_data( station )
+    pr.activity = activity
     pr.save  
     return 1  
   end
