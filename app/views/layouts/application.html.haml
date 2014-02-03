@@ -34,12 +34,19 @@
               %ul.nav
                 %li.dropdown
                   =link_to '#', {:class=>'dropdown-toggle', 'data-toggle'=>'dropdown'} do 
-                    Data
+                    Location
                     %b.caret
                   %ul.dropdown-menu
-                    %li=link_to "Νομοί", admin_counties_path
-                    %li=link_to "Δήμοι", admin_municipalities_path
-                    %li=link_to "Πόλεις", admin_cities_path
+                    %li=link_to "Regions", admin_counties_path
+                    %li=link_to "Municipals", admin_municipalities_path
+                    %li=link_to "Cities", admin_cities_path
+                %li.dropdown
+                  =link_to '#', {:class=>'dropdown-toggle', 'data-toggle'=>'dropdown'} do 
+                    Fuel
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li=link_to "Owners", admin_all_owners_path
+                    %li=link_to "Stations", admin_all_stations_path
               %ul.nav.pull-right
                 %li=link_to 'Logout', destroy_user_session_url, :method => :delete
 

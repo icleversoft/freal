@@ -1,0 +1,5 @@
+%table.table.table-striped
+  %caption 
+    %h3 Stations
+  =render :partial => 'station', :collection => @stations
+%p=paginate @stations

@@ -1,0 +1,13 @@
+%tr
+  %td
+    =link_to station.address, '#'
+    %br
+    .muted="#{station.owner.name}, #{station.city.name}"
+    .hero-unit
+      %ul.unstyled
+      -station.prices.desc(:created_at).each do |price|
+        %li
+          =price.fuel_description
+          .badge.badge-info=number_to_currency(price.price)
+          -unless price.activity.nil?
+            .muted=price.activity.created_at

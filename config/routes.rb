@@ -1,5 +1,9 @@
 Freal::Application.routes.draw do
 
+  get "stations/index"
+
+  get "owners/index"
+
   authenticated :user do
     root :to => 'home#index'
   end
@@ -16,5 +20,7 @@ Freal::Application.routes.draw do
       end
     end
     resources :cities
+    match "all_stations" => "stations#index", :as => :all_stations
+    match "all_owners" => "owners#index", :as => :all_owners
   end
 end
