@@ -24,6 +24,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'gmaps4rails'
 
 gem 'geocoder' #https://github.com/alexreisner/geocoder
+gem 'unicorn'
 
 gem 'simple_form'
 gem 'kaminari-bootstrap'
