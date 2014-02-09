@@ -33,9 +33,6 @@ gem 'fuelprices', :path => 'mygems/fuelprices'
 gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
 
 group :development do
-  gem 'sqlite3'
-  gem 'sequel'
-
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'html2haml'
