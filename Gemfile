@@ -12,6 +12,9 @@ gem 'figaro'
 gem 'haml-rails'
 gem 'mongoid'
 
+gem 'capistrano'
+gem 'rvm-capistrano'
+
 
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
