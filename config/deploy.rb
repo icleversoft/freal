@@ -49,7 +49,7 @@ set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEA
 
 default_run_options[:pty]   = true
 
-default_environment["RAILS_ENV"] = 'developemnt'
+default_environment["RAILS_ENV"] = 'development'
 
 # Use our ruby-1.9.3-p374@web-template gemset
 default_environment["PATH"]         = "/home/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bin:/home/gstavrou/.rvm/rubies/ruby-1.9.3-p484/bin:/home/gstavrou/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
