@@ -96,6 +96,7 @@ namespace :deploy do
   task :update_code, :except => { :no_release => true } do
     # run "cd #{current_path}; git fetch origin; git reset --hard #{branch}"
     run "cd #{current_path}; git pull origin #{branch}"
+    run "cd #{current_path}; bundle install --no-deployment"
 # if [ -d data/shared/cached-copy ];
 # then cd data/shared/cached-copy && git remote set-url origin git@git:project.git && git fetch -q origin && git reset -q --hard 5da89014b1fdb96a46fdafa08d05a1e841c3c011 && git clean -q -d -x -f;
 # else git clone -q git@git:project.git data/shared/cached-copy && cd data/shared/cached-copy && git checkout -q -b deploy 5da89014b1fdb96a46fdafa08d05a1e841c3c011;
@@ -130,7 +131,7 @@ namespace :deploy do
       ln -sf #{shared_path}/public/system #{latest_release}/public/system &&
       ln -sf #{shared_path}/mongoid.yml #{latest_release}/config/mongoid.yml
     CMD
-
+    
     if fetch(:normalize_asset_timestamps, true)
       stamp = Time.now.utc.strftime("%Y%m%d%H%M.%S")
       asset_paths = fetch(:public_children, %w(images stylesheets javascripts)).map { |p| "#{latest_release}/public/#{p}" }.join(" ")
