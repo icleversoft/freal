@@ -23,7 +23,7 @@ set :ssh_options,     { :forward_agent => true }
 set :scm_verbose, true
 
 set :keep_releases,   2
-
+set :application, 'freal'
 set :rails_env,       "development"
 set :whenever_environment, defer { "#{rails_env}" }
 set :whenever_identifier, defer { "#{application}_#{rails_env}" }
