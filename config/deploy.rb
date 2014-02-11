@@ -25,7 +25,7 @@ set :scm_verbose, true
 set :keep_releases,   2
 
 set :rails_env,       "development"
-set :whenever_environment, defer, { "#{rails_env}" }
+set :whenever_environment, defer { "#{rails_env}" }
 set :whenever_identifier, defer { "#{application}_#{rails_env}" }
 set :deploy_to,       "/home/gstavrou/apps/freal"
 # set :deploy_via,      :export
