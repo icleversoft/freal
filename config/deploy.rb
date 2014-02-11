@@ -1,4 +1,6 @@
 require "bundler/capistrano"
+require "whenever/capistrano"
+
 set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")#'ruby-1.9.3-p484@freal'
 # Add RVM's lib directory to the load path.
 # $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
@@ -23,7 +25,7 @@ set :scm_verbose, true
 set :keep_releases,   2
 
 set :rails_env,       "development"
-
+set :whenever_environment, "#{rails_env}"
 set :deploy_to,       "/home/gstavrou/apps/freal"
 # set :deploy_via,      :export
 # set :deploy_via,      :remote_cache
@@ -96,7 +98,8 @@ namespace :deploy do
   task :update_code, :except => { :no_release => true } do
     # run "cd #{current_path}; git fetch origin; git reset --hard #{branch}"
     run "cd #{current_path}; git pull origin #{branch}"
-    run "cd #{current_path}; bundle install --no-deployment"
+    run "cd #{current_path}; bundle install"
+    # run "cd #{current_path}; bundle install --no-deployment"
 # if [ -d data/shared/cached-copy ];
 # then cd data/shared/cached-copy && git remote set-url origin git@git:project.git && git fetch -q origin && git reset -q --hard 5da89014b1fdb96a46fdafa08d05a1e841c3c011 && git clean -q -d -x -f;
 # else git clone -q git@git:project.git data/shared/cached-copy && cd data/shared/cached-copy && git checkout -q -b deploy 5da89014b1fdb96a46fdafa08d05a1e841c3c011;
