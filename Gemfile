@@ -32,6 +32,7 @@ gem 'nokogiri'
 
 gem 'fuelprices', :path => 'mygems/fuelprices'
 gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
+gem 'whenever', :require => false
 
 group :development do
   gem 'better_errors'
