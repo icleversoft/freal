@@ -27,7 +27,7 @@ gem 'geocoder' #https://github.com/alexreisner/geocoder
 gem 'unicorn'
 
 gem 'simple_form'
-gem 'kaminari-bootstrap'
+gem 'kaminari-bootstrap', '~> 0.1.3'
 gem 'nokogiri'
 
 gem 'fuelprices', :path => 'mygems/fuelprices'
