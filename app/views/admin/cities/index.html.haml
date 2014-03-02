@@ -1,2 +1,5 @@
-%h1 Admin::Cities#index
-%p Find me in app/views/admin/cities/index.html.haml
+%table.table.table-striped
+  %caption 
+    %h3 Πόλεις
+  =render :partial => 'city', :collection => @cities
+%p=paginate @cities
