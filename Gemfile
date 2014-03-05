@@ -33,7 +33,7 @@ gem 'nokogiri'
 gem 'fuelprices', :path => 'mygems/fuelprices'
 gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
 gem 'whenever', :require => false
-
+gem 'tire', :path => 'mygems/retire'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
