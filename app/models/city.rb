@@ -12,7 +12,7 @@ class City
   field :location, type: Array
   
   belongs_to :municipality
-  
+  Tire.configure { logger 'elasticsearch.log' }
   def to_indexed_json
     to_json
   end
@@ -21,15 +21,12 @@ class City
     indexes :location, type: :geo_point, geohash: true
   end
   
-  def self.get_closest_bars( location )
+  def self.get_closest_cities( location )
     res = tire.search do
       query do
         all
       end
       filter "geo_distance", {:distance => "2000m", "location" => location}#[34.1445772, -118.4090847]
-      sort do
-        by 'distance', :asc
-      end
     end
     res
   end
