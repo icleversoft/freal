@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Fuelprices::VERSION
   spec.authors       = ["icleversoft"]
   spec.email         = ["iphone@icleversoft.com"]
-  spec.description   = %q{Parses for a given code list and fuel type the fuelprices.gr and gets specific data for each station.}
-  spec.summary       = %q{TODO: Parses fuelprices.gr}
+  spec.description   = "Parses for a given code list and fuel type the fuelprices.gr and gets specific data for each station."
+  spec.summary       = "Parses fuelprices.gr"
   spec.homepage      = ""
   spec.license       = "MIT"
 
