@@ -56,13 +56,13 @@ Devise.setup do |config|
   # :token         = Support basic authentication with token authentication key
   # :token_options = Support token authentication with options as defined in
   #                  http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
-  # config.http_authenticatable = false
+  config.http_authenticatable = true
 
   # If http headers should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
 
   # The realm used in Http Basic Authentication. "Application" by default.
-  # config.http_authentication_realm = "Application"
+  config.http_authentication_realm = "Freal"
 
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
@@ -132,7 +132,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length. Default is 8..128.
-  config.password_length = 8..128
+  config.password_length = 6..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -142,7 +142,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 30.minutes
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
@@ -188,11 +188,11 @@ Devise.setup do |config|
   # REST_AUTH_SITE_KEY to pepper).
   #
   # Require the `devise-encryptable` gem when using anything other than bcrypt
-  # config.encryptor = :sha512
+  config.encryptor = :bcrypt #:sha512
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
-  # config.token_authentication_key = :auth_token
+  config.token_authentication_key = :auth_token
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for

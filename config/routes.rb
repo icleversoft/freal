@@ -1,5 +1,7 @@
 Freal::Application.routes.draw do
 
+  get "cities/index"
+
   get "stations/index"
 
   get "owners/index"
@@ -22,5 +24,11 @@ Freal::Application.routes.draw do
     resources :cities
     match "all_stations" => "stations#index", :as => :all_stations
     match "all_owners" => "owners#index", :as => :all_owners
+  end
+  
+  namespace :api do
+    namespace :v1 do
+      match '/nearme'   => 'cities#index', format: :json
+    end  
   end
 end
