@@ -35,6 +35,7 @@ gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
 gem 'whenever', :require => false
 gem 'tire', :path => 'mygems/retire'
 group :development do
+  gem 'logging-rails', :require => 'logging/rails'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'html2haml'
