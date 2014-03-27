@@ -38,11 +38,19 @@ namespace :updater do
       [1, 2, 4, 5, 6].each do |fuel_type|
           begin
             puts "Getting prices for codes:#{m.city_codes.join(',')}..."
-            stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
-            stations.each do |st|
-              count = count + Price.insert_data_for_station( st, ac )
+            stations = nil
+            while stations.nil?
+              stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
+              if stations.nil?
+                puts "Timeout retry after 2secs..."
+                sleep 2
+              else
+                stations.each do |st|
+                  count = count + Price.insert_data_for_station( st, ac )
+                end
+                queue.delete_at(0)
+              end
             end
-            queue.delete_at(0)
           rescue => e
             puts "An error occured :#{e.message}"
             puts "Retrying..."
@@ -65,9 +73,17 @@ namespace :updater do
       if !m.nil?
         [1, 2, 4, 5, 6].each do |fuel_type|
             puts "Getting prices for codes:#{m.city_codes.join(',')}..."
-            stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
-            stations.each do |st|
-              Price.insert_data_for_station( st )
+            stations = nil
+            while stations.nil?
+              stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
+              if stations.nil?
+                puts "Timeout retry after 2secs..."
+                sleep 2
+              else
+                stations.each do |st|
+                  Price.insert_data_for_station( st )
+                end
+              end
             end
         end
       else

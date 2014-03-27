@@ -114,6 +114,7 @@ module Fuelprices
           end
         rescue => e
           p e.message
+          @stations = nil
         end
       end
     
