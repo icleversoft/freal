@@ -6,7 +6,7 @@ class Api::V1::CitiesController < Api::V1::BaseController
     data = []
     cities.each do |c|
       # data << {_id: c._id, :name => c.name, :location => c.location, stations: c.municipality.stations.collect{|i| i.api_attributes}}
-      data << {_id: c._id, :name => c.name, :location => c.location, stations: c.municipality}
+      data << {_id: c._id, :name => c.name, :location => c.location, stations: c.city_municipality}
     end
     respond_with(:cities => data, location: @location)
   end

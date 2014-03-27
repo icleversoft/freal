@@ -26,7 +26,7 @@ class City
     if municipality.nil?
       return []
     else
-      municipality
+      municipality.stations.collect{|i| i.api_attributes}
     end
   end
   

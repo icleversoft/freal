@@ -22,6 +22,14 @@ class Municipality
     stations
   end
 
+  def api_attributes
+    data = {}
+    attributes.keys.select{|i| %w(_id name).include?(i)}.each do |k|
+      data[k] = attributes[k]
+    end
+    data
+  end
+
   def city_codes
     self.cities.map{|city| city.code}
   end
