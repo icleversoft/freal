@@ -62,6 +62,13 @@ default_environment["RUBY_VERSION"] = "ruby-1.9.3-p484@freal"
 
 default_run_options[:shell] = 'bash'
 
+namespace :es do
+  desc "Update Cities index"
+  task :update_cities do
+    run "cd #{current_path} ; bundle exec rake environment tire:import:model CLASS='City' FORCE=true"
+  end
+end
+
 namespace :deploy do
   desc "Deploy your application"
   task :default do

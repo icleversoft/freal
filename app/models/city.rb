@@ -31,7 +31,7 @@ class City
   end
   
   def self.get_closest_cities( location )
-    res = tire.search do
+    res = tire.search(per_page: 1) do
       query do
         all
       end
