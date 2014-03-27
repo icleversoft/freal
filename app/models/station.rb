@@ -2,6 +2,11 @@ class Station
   include Mongoid::Document
   include Mongoid::Timestamps
   include Geocoder::Model::Mongoid
+  
+  include Tire::Model::Search
+  include Tire::Model::Callbacks  
+
+  
   before_create :set_slug
 
   FUEL_TYPES = { "1" => "Unleaded-95", 
@@ -19,6 +24,14 @@ class Station
   belongs_to :city, :class_name => 'Municipality', :foreign_key => 'city_id'
   belongs_to :owner, :class_name => 'Owner', :dependent => :nullify, :foreign_key => 'station_id'
   has_many :prices, :dependent => :destroy
+  
+  def station_prices
+    self.prices
+  end
+
+  def to_indexed_json
+    self.to_json(methods: :station_prices)
+  end
   
   index({ slug: 1 }, { unique: true, name: "slug_station_index" })
   
@@ -38,4 +51,14 @@ class Station
     end
     st
   end
+  
+  def api_attributes
+    data = {}
+    attributes.keys.select{|i| %w(_id firm address).include?(i)}.each do |k|
+      data[k] = attributes[k]
+    end
+    data["prices"] = prices.desc(:submitted).limit(10).map{|i| i.api_attributes }
+    data
+  end
+  
 end

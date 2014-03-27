@@ -1,7 +1,13 @@
 class Price
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+  
+  def to_indexed_json
+    self.to_json
+  end
+  
   before_create :set_slug
   field :price
   field :fuel_type, :type => Integer
@@ -35,4 +41,14 @@ class Price
   def fuel
     Station::FUEL_TYPES[self.fuel_type.to_s]
   end
+
+  def api_attributes
+    data = {}
+    attributes.keys.select{|i| %w(_id fuel_type price submitted fuel_description).include?(i)}.each do |k|
+      data[k] = attributes[k]
+    end
+    data["activity_id"] =activity._id
+    data
+  end
+  
 end

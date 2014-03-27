@@ -12,13 +12,22 @@ class City
   field :location, type: Array
   
   belongs_to :municipality
-  Tire.configure { logger 'elasticsearch.log' }
+  # Tire.configure { logger 'elasticsearch.log' }
   def to_indexed_json
-    to_json
+    self.to_json(methods: :city_municipality)
+    # to_json
   end
   
   mapping do
     indexes :location, type: :geo_point, geohash: true
+  end
+  
+  def city_municipality
+    if municipality.nil?
+      return []
+    else
+      municipality
+    end
   end
   
   def self.get_closest_cities( location )
