@@ -57,7 +57,7 @@ class Station
     attributes.keys.select{|i| %w(_id firm address).include?(i)}.each do |k|
       data[k] = attributes[k]
     end
-    data["prices"] = prices.desc(:submitted).limit(10).map{|i| i.api_attributes }
+    data["prices"] = prices.desc(:created_at).limit(10).map{|i| i.api_attributes }
     data
   end
   
