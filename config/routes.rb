@@ -29,6 +29,7 @@ Freal::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       match '/nearme'   => 'cities#index', format: :json
+      post '/register_device/:token' => 'registration#create', format: :json
     end  
   end
 end

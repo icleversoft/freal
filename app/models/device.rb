@@ -1,4 +1,12 @@
 class Device
   include Mongoid::Document
-  field :token, type: String
+  include Mongoid::Timestamps
+  
+  field :token
+  field :name
+  field :dmodel
+  field :version
+  field :appVersion
+  
+  index({token: 1}, {unique: true})
 end
