@@ -35,7 +35,7 @@ class City
       query do
         all
       end
-      filter "geo_distance", {:distance => "4000m", "location" => location}#[34.1445772, -118.4090847]
+      filter "geo_distance", {:distance => "2000m", "location" => location, "distance_type" => "arc"}#[34.1445772, -118.4090847]
     end
     res
   end
