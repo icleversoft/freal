@@ -26,6 +26,17 @@ gem 'gmaps4rails'
 gem 'geocoder' #https://github.com/alexreisner/geocoder
 gem 'unicorn'
 
+#--------------------
+gem "i18n"
+gem "hiredis"
+gem "redis"
+gem "em-synchrony"
+gem 'yajl-ruby'
+gem 'daemons'
+gem 'icapnd', :git => 'git@github.com:icleversoft/icapnd.git'
+#--------------------
+
+
 gem 'simple_form'
 gem 'kaminari-bootstrap', '~> 0.1.3'
 gem 'nokogiri'
