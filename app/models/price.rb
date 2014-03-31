@@ -49,7 +49,7 @@ class Price
     attributes.keys.select{|i| %w(_id fuel_type price submitted fuel_description).include?(i)}.each do |k|
       data[k] = attributes[k]
     end
-    data["activity_id"] =activity._id
+    data["activity_id"] = activity._id unless activity.nil?
     data
   end
   
