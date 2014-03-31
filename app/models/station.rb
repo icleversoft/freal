@@ -24,7 +24,10 @@ class Station
   belongs_to :city, :class_name => 'Municipality', :foreign_key => 'city_id'
   belongs_to :owner, :class_name => 'Owner', :dependent => :nullify, :foreign_key => 'station_id'
   has_many :prices, :dependent => :destroy
-  
+
+  has_many :favorites, autosave: true, :dependent => :destroy
+  # belongs_to :favorite
+    
   def station_prices
     self.prices
   end
