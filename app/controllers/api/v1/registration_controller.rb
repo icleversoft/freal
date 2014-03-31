@@ -42,7 +42,7 @@ private
   def find_device
     @device = nil
     token = params[:token]
-    token || = ''
+    token ||= ''
     token = token.strip
     unless token.empty?
       @device = Device.find_or_create_by(token: token )
