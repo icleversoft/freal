@@ -13,7 +13,7 @@ class Api::V1::RegistrationController < Api::V1::BaseController
 
       render :json => @device.to_json, :status => 200
     else
-      render :json => {"Invalid device token!"}, :status => 500
+      render :json => {message: "Invalid device token!"}, :status => 500
     end
   end
   
@@ -25,15 +25,15 @@ class Api::V1::RegistrationController < Api::V1::BaseController
           Favorite.create(station: station, device: @device)
           station.save
           @device.save
-          render :json => 'OK', status: 200
+          render :json => {message: 'OK'}, status: 200
         else
-          render :json => 'Station is already into the observer list', status: 500
+          render :json => {message: 'Station is already into the observer list'}, status: 500
         end
       else
-        render :json => 'Station not found', status: 500
+        render :json => {message: 'Station not found'}, status: 500
       end
     else
-      render :json => {"Invalid device token!"}, :status => 500
+      render :json => {message: "Invalid device token!"}, :status => 500
     end
   end
 
