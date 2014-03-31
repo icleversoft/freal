@@ -33,6 +33,7 @@ class Price
     activity = Activity.last if activity.nil?
     pr.activity = activity
     pr.save  
+    pr.tire.update_index
     return 1  
   end
   
