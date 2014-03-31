@@ -1,14 +1,52 @@
 class Api::V1::RegistrationController < Api::V1::BaseController
+  before_filter :find_device
+  
   def create
-    @device = Device.find_or_create_by(token: params[:token] )
-    name, dmodel, version, appVersion = [params[:name], params[:model], params[:version], params[:app_version]]
+    if !@device.nil?
+      name, dmodel, version, appVersion = [params[:name], params[:model], params[:version], params[:app_version]]
     
-    name ||= ''
-    dmodel ||= ''
-    version ||= ''
-    appVersion ||= ''
-    @device.update_attributes(name: name, model: dmodel, version: version, appVersion: appVersion)
+      name ||= ''
+      dmodel ||= ''
+      version ||= ''
+      appVersion ||= ''
+      @device.update_attributes(name: name, model: dmodel, version: version, appVersion: appVersion)
 
-    render :json => @device.to_json
+      render :json => @device.to_json, :status => 200
+    else
+      render :json => {"Invalid device token!"}, :status => 500
+    end
   end
+  
+  def observe_station
+    if !@device.nil?
+      station = Station.where(:id => params[:station_id]).first
+      if !station.nil?
+        if station.favorites.where(:station => station).first.nil?
+          Favorite.create(station: station, device: @device)
+          station.save
+          @device.save
+          render :json => 'OK', status: 200
+        else
+          render :json => 'Station is already into the observer list', status: 500
+        end
+      else
+        render :json => 'Station not found', status: 500
+      end
+    else
+      render :json => {"Invalid device token!"}, :status => 500
+    end
+  end
+
+private
+
+  def find_device
+    @device = nil
+    token = params[:token]
+    token || = ''
+    token = token.strip
+    unless token.empty?
+      @device = Device.find_or_create_by(token: token )
+    end
+  end
+  
 end
