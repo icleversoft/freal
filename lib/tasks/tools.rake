@@ -26,7 +26,7 @@ namespace :tools do
       next if c.municipality.nil?
       puts "Update for :#{c.name}..."
       c.municipality.stations.each do |s|
-        s.update_attribute(:location, c.location)
+        s.update_attribute(:location, c.location) if s.location.nil?
       end
     end
   end
