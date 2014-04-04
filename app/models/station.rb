@@ -32,6 +32,10 @@ class Station
     self.prices
   end
 
+  mapping do
+    indexes :location, type: :geo_point, geohash: true
+  end
+
   def to_indexed_json
     self.to_json(methods: :station_prices)
   end
@@ -42,6 +46,16 @@ class Station
     a1 = self.address.gr_normalize.gr_downcase unless self.address.nil?
     a2 = self.firm.gr_normalize.gr_downcase unless self.firm.nil?
     self.slug = "#{self.city.code.gr_normalize.gr_downcase}-#{a1}-#{a2}"
+  end
+
+  def self.get_closest_stations( location )
+    res = tire.search(per_page: 1) do
+      query do
+        all
+      end
+      filter "geo_distance", {:distance => "5000m", "location" => location, "distance_type" => "plane"}#[34.1445772, -118.4090847]
+    end
+    res
   end
   
   def self.station_for_data( station_data )
