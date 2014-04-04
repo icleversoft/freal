@@ -9,7 +9,7 @@ class Api::V1::CitiesController < Api::V1::BaseController
       # stations = []
       # cities.each{|s| s.city_municipality.each{|x| stations << x}}
       # city = cities.first
-      respond_with(:location => location, :stations => stations, status: 200)
+      respond_with(:location => location, :stations => stations.collect{|i| i.api_attributes}, status: 200)
       # respond_with(:id => city._id, :name => city.name, :location => location, :stations => city.city_municipality, status: 200)
     end
   end

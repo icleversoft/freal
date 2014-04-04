@@ -27,6 +27,8 @@ class Station
 
   has_many :favorites, autosave: true, :dependent => :destroy
   # belongs_to :favorite
+
+  # Tire.configure { logger 'station_es.log' }
     
   def station_prices
     self.prices
@@ -37,7 +39,7 @@ class Station
   end
 
   def to_indexed_json
-    self.to_json(methods: :station_prices)
+    self.to_json(methods: [:station_prices, :api_attributes])
   end
   
   index({ slug: 1 }, { unique: true, name: "slug_station_index" })
@@ -49,11 +51,11 @@ class Station
   end
 
   def self.get_closest_stations( location )
-    res = tire.search(per_page: 1) do
+    res = tire.search do
       query do
         all
       end
-      filter "geo_distance", {:distance => "5000m", "location" => location, "distance_type" => "plane"}#[34.1445772, -118.4090847]
+      filter "geo_distance", {:distance => "2000m", "location" => location, "distance_type" => "arc"}#[34.1445772, -118.4090847]
     end
     res
   end
@@ -71,9 +73,12 @@ class Station
   
   def api_attributes
     data = {}
-    attributes.keys.select{|i| %w(_id firm address).include?(i)}.each do |k|
-      data[k] = attributes[k]
-    end
+    # attributes.keys.select{|i| %w(_id firm address).include?(i)}.each do |k|
+    #   data[k] = attributes[k]
+    # end
+    data["_id"] = _id
+    data["firm"] = firm
+    data["address"] = address
     data["prices"] = prices.desc(:created_at).limit(10).map{|i| i.api_attributes }
     data
   end
