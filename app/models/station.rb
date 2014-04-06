@@ -79,7 +79,7 @@ class Station
     data["_id"] = _id
     data["firm"] = firm
     data["address"] = address
-    data["prices"] = prices.desc(:created_at).limit(10).map{|i| i.api_attributes }
+    data["prices"] = prices.where(fuel_type:1).desc(:created_at).limit(2).map{|i| i.api_attributes }
     data
   end
   

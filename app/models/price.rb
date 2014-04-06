@@ -37,6 +37,7 @@ class Price
     return 1  
   end
   
+
   def set_slug
     self.slug = "#{self.station.city.code.gr_normalize.gr_downcase}-#{self.station.owner.name.gr_normalize.gr_downcase}-#{self.station.firm.gr_normalize.gr_downcase}-#{self.submitted.gr_normalize.gr_downcase}-#{self.fuel_type}"
   end
