@@ -42,6 +42,7 @@ namespace :updater do
             if stations.nil?
               puts "Adding to queue again..."
               queue << m 
+              queue.delete_at(0)
             else
               stations.each do |st|
                 count = count + Price.insert_data_for_station( st, ac )
@@ -52,6 +53,7 @@ namespace :updater do
             puts "An error occured :#{e.message}"
             puts "Adding to queue again..."
             queue << m 
+            queue.delete_at(0)
           end
         sleep 1
       end
