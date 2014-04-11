@@ -42,8 +42,9 @@ namespace :updater do
             while stations.nil?
               stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
               if stations.nil?
-                puts "Timeout retry after 2secs..."
-                sleep 2
+                exit 1
+                # puts "Timeout retry after 2secs..."
+                # sleep 2
               else
                 stations.each do |st|
                   count = count + Price.insert_data_for_station( st, ac )
