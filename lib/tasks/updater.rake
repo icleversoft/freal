@@ -40,6 +40,7 @@ namespace :updater do
             puts "Getting prices for codes:#{m.city_codes.join(',')}..."
             stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
             if stations.nil?
+              puts "Adding to queue again..."
               queue << m 
             else
               stations.each do |st|
@@ -48,9 +49,9 @@ namespace :updater do
               queue.delete_at(0)
             end
           rescue => e
-            queue << m 
             puts "An error occured :#{e.message}"
-            puts "Retrying..."
+            puts "Adding to queue again..."
+            queue << m 
           end
         sleep 1
       end
