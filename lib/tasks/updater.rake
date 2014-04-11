@@ -38,21 +38,17 @@ namespace :updater do
       [1, 2, 4, 5, 6].each do |fuel_type|
           begin
             puts "Getting prices for codes:#{m.city_codes.join(',')}..."
-            stations = nil
-            while stations.nil?
-              stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
-              if stations.nil?
-                exit 1
-                # puts "Timeout retry after 2secs..."
-                # sleep 2
-              else
-                stations.each do |st|
-                  count = count + Price.insert_data_for_station( st, ac )
-                end
-                queue.delete_at(0)
+            stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
+            if stations.nil?
+              queue << m 
+            else
+              stations.each do |st|
+                count = count + Price.insert_data_for_station( st, ac )
               end
+              queue.delete_at(0)
             end
           rescue => e
+            queue << m 
             puts "An error occured :#{e.message}"
             puts "Retrying..."
           end
