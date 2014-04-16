@@ -8,7 +8,7 @@ require 'open-uri'
 #   end
 # end
 module Fuelprices
-  BASE_URL = "http://www.fuelprices.gr/CheckPrices?"
+  BASE_URL = "http://anonymouse.org/cgi-bin/anon-www.cgi/http://www.fuelprices.gr/CheckPrices?"
   class Station
     attr_accessor :price, :fuel_type, :firm, :address, :company, :submit_datetime, :code, :ft
     def initialize( area, data, ft )
