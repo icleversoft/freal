@@ -29,6 +29,14 @@ class Api::V1::CitiesController < Api::V1::BaseController
     end
   end
 
+  def myfavorites
+    if @device.nil?
+      render json: {msg: 'Device token not found!'}, status: 404
+    else
+      render json: {favorites: @device.favorites.collect{|i| i.station.api_attributes}}
+    end
+  end
+
 private  
 
   def find_device
