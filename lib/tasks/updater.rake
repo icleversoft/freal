@@ -42,6 +42,7 @@ namespace :updater do
             unless stations.nil?
               stations.each do |st|
                 count = count + Price.insert_data_for_station( st, ac )
+                st.tire.update_index
               end
             end
             queue.delete_at(0)
@@ -71,6 +72,7 @@ namespace :updater do
             unless stations.nil?
               stations.each do |st|
                 Price.insert_data_for_station( st )
+                st.tire.update_index
               end
             end
         end
