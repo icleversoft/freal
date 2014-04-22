@@ -20,6 +20,6 @@
 # Learn more: http://github.com/javan/whenever
 every 6.hours do
   # runner "MyModel.some_process"
-  rake "updater:price"#, :output => {:error => 'error.log', :standard => 'cron.log'}
+  rake "updater:price", :output => {:error => 'error.log', :standard => 'cron.log'}
   # command "/usr/bin/my_great_command"
 end
