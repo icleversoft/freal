@@ -29,9 +29,9 @@ Freal::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       match '/nearme'   => 'cities#index', format: :json
-      get '/mystation/:token/:id' => 'cities#mystation', format: :json, :constraints => {:token => /[0-9a-f]{64}/}
-      get '/myfavorites/:token' => 'cities#myfavorites', format: :json, :constraints => {:token => /[0-9a-f]{64}/}
-      post '/register_device/:token' => 'registration#create', format: :json, :constraints => {:token => /[0-9a-f]{64}/}
+      get '/mystation/:token/:id' => 'cities#mystation', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}
+      get '/myfavorites/:token' => 'cities#myfavorites', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}
+      post '/register_device/:token' => 'registration#create', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}
       post '/observe_station/:token/:station_id' => 'registration#observe_station', format: :json, :constraints => {:token => /[0-9a-f]{64}/}
     end  
   end

@@ -1,6 +1,17 @@
 class Api::V1::CitiesController < Api::V1::BaseController
-  before_filter :find_device
+  before_filter :find_device, :except => [:index]
+  
   def index
+    location = [params[:lat], params[:lon]]
+    city = City.nearby_city(params[:lat], params[:lon])
+    if city.nil?
+      respond_with(message: 'Not found any station', status: 400)
+    else
+      respond_with(:location => location, :stations => city.municipality.stations.collect{|i| i.api_attributes}, status: 200)
+    end
+  end
+  
+  def index1
     location = [params[:lat], params[:lon]].collect{|i| i.to_f}
     # city = City.get_closest_cities(location).first
     stations = Station.get_closest_stations(location)

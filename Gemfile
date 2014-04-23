@@ -7,7 +7,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'jquery-rails'
-gem 'devise'
+gem 'devise', '2.2.8'
 gem 'figaro'
 gem 'haml-rails'
 gem 'mongoid'
@@ -45,6 +45,9 @@ gem 'fuelprices', :path => 'mygems/fuelprices'
 gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
 gem 'whenever', :require => false
 gem 'tire', :path => 'mygems/retire'
+gem "searchkick"#, '~>0.6.3'
+
+
 group :development do
   # gem 'logging-rails', :require => 'logging/rails'
   gem 'better_errors'
@@ -53,10 +56,12 @@ group :development do
   gem 'hub', :require=>nil
   gem 'quiet_assets'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
 end
+
 group :test do
   gem 'capybara'
   gem 'cucumber-rails', :require=>false
