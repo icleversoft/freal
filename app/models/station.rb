@@ -51,11 +51,11 @@ class Station
   end
 
   def self.get_closest_stations( location )
-    res = tire.search do
+    res = tire.search(:per_page => 50, :page => 1) do
       query do
         all
       end
-      filter "geo_distance", {:distance => "2000m", "location" => location, "distance_type" => "arc"}#[34.1445772, -118.4090847]
+      filter "geo_distance", {:distance => "5000m", "location" => location, "distance_type" => "arc"}#[34.1445772, -118.4090847]
     end
     res
   end
@@ -79,7 +79,7 @@ class Station
     data["_id"] = _id
     data["firm"] = firm
     data["address"] = address
-    data["prices"] = prices.where(fuel_type:1).desc(:created_at).limit(2).map{|i| i.api_attributes }
+    data["prices"] = prices.where(fuel_type:1).desc(:created_at).limit(1).map{|i| i.api_attributes }
     data
   end
   
