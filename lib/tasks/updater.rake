@@ -54,6 +54,7 @@ namespace :updater do
     
     ac.count = count
     ac.save if count > 0
+    Mailer.update_prices
   end  
   
   desc "Get price for a specific municipality"
@@ -78,6 +79,7 @@ namespace :updater do
       else
         puts "Municipality not found!"
       end
+      Mailer.update_prices
     end
   end  
   

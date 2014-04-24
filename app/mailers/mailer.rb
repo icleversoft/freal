@@ -8,6 +8,6 @@ class Mailer < ActionMailer::Base
   #
   def update_prices
     @date = Time.now.strftime("%d/%m/%Y, %H:%M")
-    mail (to: ENV['ADMIN_EMAIL'], subject: 'Update of prices have been done!')
+    mail(to: ENV['ADMIN_EMAIL'], subject: 'Update of prices have been done!')
   end
 end
