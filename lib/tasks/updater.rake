@@ -33,11 +33,12 @@ namespace :updater do
     ac = Activity.new
     
     count = 0
-    while queue.size > 0
-      m = queue.first
+    # while queue.size > 0
+    queue.each do |m|
+      puts "Getting prices for Municipality:#{m.name} -- #{m.code}..."
       [1, 2, 4, 5].each do |fuel_type|
           begin
-            puts "Getting prices for codes:#{m.city_codes.join(',')}..."
+            # puts "Getting prices for codes:#{m.city_codes.join(',')}..."
             stations = Fuelprices::Parser.new(m.code, m.city_codes, fuel_type).stations
             unless stations.nil?
               stations.each do |st|
@@ -46,9 +47,7 @@ namespace :updater do
                 station.tire.update_index unless station.nil?
               end
             end
-            queue.delete_at(0)
           rescue => e
-            queue.delete_at(0)
             puts "An error occured :#{e.message}"
           end
         sleep 2

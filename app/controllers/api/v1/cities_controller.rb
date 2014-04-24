@@ -7,7 +7,7 @@ class Api::V1::CitiesController < Api::V1::BaseController
     if city.nil?
       respond_with(message: 'Not found any station', status: 400)
     else
-      respond_with(:location => location, :stations => city.municipality.stations.collect{|i| i.api_attributes}, status: 200)
+      respond_with(city: {name: city.name, code: city.code, location: location}, :stations => city.municipality.stations.collect{|i| i.api_attributes}, status: 200)
     end
   end
   
