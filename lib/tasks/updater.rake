@@ -5,8 +5,8 @@ namespace :updater do
     ac = Activity.new
     
     count = 0
-    while queue.size > 0
-      m = queue.first
+    queue.each do |m|
+      puts "Getting prices for Municipality:#{m.name} -- #{m.code}..."
       [1, 2, 4, 5, 6].each do |fuel_type|
           begin
             puts "Getting prices for codes:#{m.city_codes.join(',')}..."
@@ -14,10 +14,8 @@ namespace :updater do
             stations.each do |st|
               count = count + Price.insert_data_for_station( st, ac )
             end
-            queue.delete_at(0)
           rescue => e
             puts "An error occured :#{e.message}"
-            puts "Retrying..."
           end
         sleep 1
       end
