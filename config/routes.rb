@@ -28,7 +28,12 @@ Freal::Application.routes.draw do
   
   namespace :api do
     namespace :v1 do
-      match '/nearme'   => 'cities#index', format: :json
+      get '/counties'   => 'counties#all', format: :json
+      get '/cities/all/:page'   => 'cities#all', format: :json, conditions: {page: /\d+/}
+      get '/cities/find/:query' => 'cities#find_by_name', format: :json
+      get '/county/:id/municipalities' => 'counties#municipalities', format: :json
+      
+      match '/nearme'   => 'cities#nearme', format: :json
       get '/mystation/:token/:id' => 'cities#mystation', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}
       get '/myfavorites/:token' => 'cities#myfavorites', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}
       post '/register_device/:token' => 'registration#create', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}

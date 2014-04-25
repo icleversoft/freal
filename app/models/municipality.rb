@@ -24,7 +24,7 @@ class Municipality
 
   def api_attributes
     data = {}
-    attributes.keys.select{|i| %w(_id name).include?(i)}.each do |k|
+    attributes.keys.select{|i| %w(_id name code).include?(i)}.each do |k|
       data[k] = attributes[k]
     end
     data

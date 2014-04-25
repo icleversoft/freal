@@ -5,7 +5,49 @@ class City
   geocoded_by :location 
   reverse_geocoded_by :location
   
-  searchkick locations: ["location"]
+  # Searchkick.client.transport.logger = Logger.new("ES_City.log")
+  searchkick locations: ["location"], word_start: [:name]#, 
+  # settings: {
+  #   analysis: {
+  #     analyzer:{
+  #       my_greek:{
+  #         type: :custom,
+  #         tokenizer: :my_tokenizer,
+  #         filter: [:lower_case_filter],
+  #         char_filter: [:greek_char_downcase]
+  #       }
+  #     },
+  #     tokenizer:{
+  #       my_tokenizer:{
+  #         type: :standard,
+  #         max_token_length: 900
+  #       }
+  #     },
+  #     filter:{
+  #       lower_case_filter:{
+  #         type: :lowercase,
+  #         language: :greek
+  #       }
+  #     },
+  #     char_filter:{
+  #       greek_char_downcase:{
+  #         type: :mapping,
+  #         mappings: GreekChars::GreekNormalizer.char_map
+  #       }
+  #     }
+  #   }
+  # }, 
+  # mappings: {
+  #   city: {
+  #     properties:{
+  #       name: {
+  #         type: :string,
+  #         analyzer: :my_greek
+  #       }
+  #     }
+  #   }
+  # }
+  
   # include Tire::Model::Search
   # include Tire::Model::Callbacks  
   # searchkick
@@ -17,6 +59,10 @@ class City
   field :location, type: Array
   
   belongs_to :municipality
+  
+  
+  
+  
   # Tire.configure { logger 'elasticsearch.log' }
   # def to_indexed_json
   #   self.to_json(methods: :city_municipality)
@@ -28,7 +74,7 @@ class City
   # end
   
   def search_data
-    as_json(method: city_municipality)
+    as_json#(method: city_municipality)
     # unless municipality.nil?
     #   attributes.merge municipality:  municipality.api_attributes
     # end
@@ -38,12 +84,22 @@ class City
   #City.search "*", where: {location: {near: [37.96033, 23.71122], within: "4km"}}
   
   def self.nearby_city(lat, lon, distance = 1.5)
-    cities = City.search "*", where: {location: {near: [lat, lon], within: "#{distance}km"}}
+    cities = City.search "*", fields:[:name], where: {location: {near: [lat, lon], within: "#{distance}km"}}
     cities.first
   end
   
-  Searchkick.client.transport.logger = Logger.new("ES_City.log")
   
+  def api_attributes
+    data = {}
+    attributes.select{|k,v| %w(_id name code).include?(k)}.each do |k, v|
+      data[k] = v.to_s.strip
+    end
+    if municipality
+      data['municipality'] = municipality.name
+      data['county'] = municipality.county.name
+    end
+    data
+  end
   
   def city_municipality
     if municipality.nil?

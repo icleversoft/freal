@@ -1,7 +1,31 @@
 class Api::V1::CitiesController < Api::V1::BaseController
-  before_filter :find_device, :except => [:index]
+  before_filter :find_device, :except => [:all, :nearme, :find_by_name]
   
-  def index
+  def find_by_name
+    query = params[:query]
+    query ||= '*'
+    page = params[:page]
+    page ||= 1
+    page = page.to_i
+    per_page = 10
+    
+    cities = City.search( query, page: page, per_page: per_page  )
+    values = cities.collect{|i| i.api_attributes}
+    respond_with(cities: values, page: page, has_more: values.size == 10, query: query)
+  end
+  
+  def all
+    page = params[:page]
+    page ||= 1
+    page = page.to_i
+    per_page = 10
+    cities = City.all.asc(:name).page(page).per(per_page)
+    values = cities.collect{|i| i.api_attributes}
+    # cities = City.search "*", order: {name: :asc}#, limit: per_page, offset: (page - 1)
+    respond_with(cities: values, page: page, has_more: values.size == 10)
+  end
+  
+  def nearme
     location = [params[:lat], params[:lon]]
     city = City.nearby_city(params[:lat], params[:lon])
     if city.nil?
