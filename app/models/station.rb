@@ -8,7 +8,8 @@ class Station
 
   
   before_create :set_slug
-
+  after_update :notify_devices
+  
   FUEL_TYPES = { "1" => "Unleaded-95", 
                  "2" => "Unleaded-100", 
                  "3" => "Super", 
@@ -81,6 +82,23 @@ class Station
     data["address"] = address
     data["prices"] = prices.where(fuel_type:1).desc(:created_at).limit(1).map{|i| i.api_attributes }
     data
+  end
+  
+  def notify_devices
+    price_entry = prices.where(:fuel_type=>1).last
+    unless price_entry.nil?
+      price_value = price_entry.price
+      submitted = price_entry.submitted
+
+
+      favorites.each do |fav|
+        notify = Icapnd::Notification.new
+        notify.alert = "#{address}: #{price_value} / #{submitted}"
+        notify.sound = "default.aiff"
+        notify.push  
+      end
+    end
+    
   end
   
 end
