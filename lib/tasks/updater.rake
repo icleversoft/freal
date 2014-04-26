@@ -42,7 +42,10 @@ namespace :updater do
               stations.each do |st|
                 count = count + Price.insert_data_for_station( st, ac )
                 station = Station.station_for_data( st )
-                station.tire.update_index unless station.nil?
+                unless station.nil?
+                  station.notify_devices
+                  station.tire.update_index
+                end
               end
             end
           rescue => e
@@ -72,7 +75,10 @@ namespace :updater do
               stations.each do |st|
                 Price.insert_data_for_station( st )
                 station = Station.station_for_data( st )
-                station.tire.update_index unless station.nil?
+                unless station.nil?
+                  station.notify_devices
+                  station.tire.update_index
+                end
               end
             end
         end

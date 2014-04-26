@@ -8,7 +8,7 @@ class Station
 
   
   before_create :set_slug
-  after_update :notify_devices
+  # after_update :notify_devices
   
   FUEL_TYPES = { "1" => "Unleaded-95", 
                  "2" => "Unleaded-100", 
@@ -84,7 +84,7 @@ class Station
     data
   end
   
-private  
+# private  
   def notify_devices
     price_entry = prices.where(:fuel_type=>1).last
     unless price_entry.nil?
