@@ -6,8 +6,9 @@ class Mailer < ActionMailer::Base
   #
   #   en.mailer.update_prices.subject
   #
-  def update_prices
+  def update_prices( count )
     @date = Time.now.strftime("%d/%m/%Y, %H:%M")
+    @count = count
     mail(to: ENV['ADMIN_EMAIL'], subject: 'Update of prices have been done!')
   end
 end
