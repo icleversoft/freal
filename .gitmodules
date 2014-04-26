@@ -1,0 +1,3 @@
+[submodule "mygems/searchkick"]
+	path = mygems/searchkick
+	url = git@github.com:icleversoft/searchkick.git
