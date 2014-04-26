@@ -31,6 +31,7 @@ Freal::Application.routes.draw do
       get '/counties'   => 'counties#all', format: :json
       get '/cities/all/:page'   => 'cities#all', format: :json, conditions: {page: /\d+/}
       get '/cities/find/:query' => 'cities#find_by_name', format: :json
+      get '/cities/ac/:query' => 'cities#autocomplete', format: :json
       get '/county/:id/municipalities' => 'counties#municipalities', format: :json
       
       match '/nearme'   => 'cities#nearme', format: :json

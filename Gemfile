@@ -45,7 +45,7 @@ gem 'fuelprices', :path => 'mygems/fuelprices'
 gem 'greek_tokenizer', :path => 'mygems/greek_tokenizer'
 gem 'whenever', :require => false
 gem 'tire', :path => 'mygems/retire'
-gem "searchkick"#, '~>0.6.3'
+gem "searchkick", :path => 'mygems/searchkick' #~>0.6.3'
 
 
 group :development do

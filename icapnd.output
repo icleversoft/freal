@@ -1,0 +1,53 @@
+I, [2014-03-31T23:21:26.475053 #9600]  INFO -- : Connecting to Apple Servers
+I, [2014-03-31T23:21:26.763461 #9600]  INFO -- : Starting APN Server on Redis
+D, [2014-03-31T23:21:26.764363 #9600] DEBUG -- : TOKEN:bca6d8f588bb86dcf230e7d694273fa2f7307b94fff8d987f0b468aa484f3cda | ALERT:{"aps"=>{"badge"=>0, "alert"=>"Hey Shwinker! A New Deal at The Shwink Tank!", "sound"=>"bump_tap.aif"}}
+D, [2014-03-31T23:21:26.764452 #9600] DEBUG -- : Sending notification to APN
+D, [2014-03-31T23:21:26.764577 #9600] DEBUG -- : 2014-03-31 23:21:26 +0300 New notif
+D, [2014-03-31T23:21:26.764653 #9600] DEBUG -- : Notif sent
+D, [2014-03-31T23:21:26.764933 #9600] DEBUG -- : TOKEN:bca6d8f588bb86dcf230e7d694273fa2f7307b94fff8d987f0b468aa484f3cda | ALERT:{"aps"=>{"badge"=>0, "alert"=>"Hey Shwinker! A New Deal at The Shwink Tank!", "sound"=>"bump_tap.aif"}}
+D, [2014-03-31T23:21:26.765024 #9600] DEBUG -- : Sending notification to APN
+D, [2014-03-31T23:21:26.765140 #9600] DEBUG -- : 2014-03-31 23:21:26 +0300 New notif
+D, [2014-03-31T23:21:26.765207 #9600] DEBUG -- : Notif sent
+I, [2014-03-31T23:21:26.991848 #9600]  INFO -- : Connection to Apple Servers completed
+I, [2014-03-31T23:21:27.519434 #9600]  INFO -- : Connection closed
+I, [2014-03-31T23:43:39.923805 #10893]  INFO -- : Connecting to Apple Servers
+I, [2014-03-31T23:43:40.328888 #10893]  INFO -- : Starting APN Server on Redis
+I, [2014-03-31T23:43:40.507857 #10893]  INFO -- : Connection to Apple Servers completed
+I, [2014-03-31T23:43:40.903845 #10893]  INFO -- : Connection closed
+/Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:290:in `rescue in establish_connection': Error connecting to Redis on 127.0.0.1:6379 (ECONNREFUSED) (Redis::CannotConnectError)
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:285:in `establish_connection'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:79:in `block in connect'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:257:in `with_reconnect'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:78:in `connect'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:304:in `ensure_connected'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:191:in `block in process'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:270:in `logging'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:190:in `process'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:96:in `call'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:179:in `block in call_with_timeout'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:244:in `with_socket_timeout'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis/client.rb:178:in `call_with_timeout'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis.rb:1038:in `block in _bpop'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis.rb:37:in `block in synchronize'
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/monitor.rb:211:in `mon_synchronize'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis.rb:37:in `synchronize'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis.rb:1035:in `_bpop'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/redis-3.0.7/lib/redis.rb:1064:in `blpop'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bundler/gems/icapnd-5fe2e3641209/lib/icapnd/server/server.rb:39:in `block (2 levels) in start!'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bundler/gems/icapnd-5fe2e3641209/lib/icapnd/server/server.rb:38:in `loop'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bundler/gems/icapnd-5fe2e3641209/lib/icapnd/server/server.rb:38:in `block in start!'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/gems/em-synchrony-1.0.3/lib/em-synchrony.rb:38:in `block (2 levels) in synchrony'
+/Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:247:in `mkdir': Operation not supported - /home/gstavrou (Errno::ENOTSUP)
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:247:in `fu_mkdir'
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:221:in `block (2 levels) in mkdir_p'
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:219:in `reverse_each'
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:219:in `block in mkdir_p'
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:205:in `each'
+	from /Users/gstavrou/.rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/fileutils.rb:205:in `mkdir_p'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bundler/gems/icapnd-7479bf596fe4/lib/icapnd/server/server.rb:23:in `initialize'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bundler/gems/icapnd-7479bf596fe4/bin/icapndaemon:92:in `new'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bundler/gems/icapnd-7479bf596fe4/bin/icapndaemon:92:in `<top (required)>'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bin/icapndaemon:23:in `load'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bin/icapndaemon:23:in `<main>'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bin/ruby_executable_hooks:15:in `eval'
+	from /Users/gstavrou/.rvm/gems/ruby-1.9.3-p484@freal/bin/ruby_executable_hooks:15:in `<main>'

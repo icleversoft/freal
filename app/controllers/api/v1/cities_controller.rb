@@ -1,5 +1,14 @@
 class Api::V1::CitiesController < Api::V1::BaseController
-  before_filter :find_device, :except => [:all, :nearme, :find_by_name]
+  before_filter :find_device, :except => [:all, :nearme, :find_by_name, :autocomplete]
+  
+  def autocomplete
+    query = params[:query]
+    cities = []
+    if !query.nil? && !query.strip.empty?
+      cities = City.search(query.gr_downcase, fields: [{name: :text_start}], limit: 10).map(&:name)#collect{|i| "#{i.name}|#{i._id}"}
+    end
+    respond_with(cities: cities, query: query)
+  end
   
   def find_by_name
     query = params[:query]
@@ -8,8 +17,10 @@ class Api::V1::CitiesController < Api::V1::BaseController
     page ||= 1
     page = page.to_i
     per_page = 10
+    # Rails.logger.debug "#{query} --- #{query.gr_downcase}"
+    cities = City.search( query.gr_downcase, fields:[{name: :word_start}], page: page, per_page: per_page  )
+    # cities = City.search query: {match: {name: query}}
     
-    cities = City.search( query, page: page, per_page: per_page  )
     values = cities.collect{|i| i.api_attributes}
     respond_with(cities: values, page: page, has_more: values.size == 10, query: query)
   end

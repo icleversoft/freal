@@ -83,6 +83,7 @@ class Station
     data["prices"] = prices.where(fuel_type:1).desc(:created_at).limit(1).map{|i| i.api_attributes }
     data
   end
+  
 private  
   def notify_devices
     price_entry = prices.where(:fuel_type=>1).last

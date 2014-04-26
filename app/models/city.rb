@@ -6,47 +6,47 @@ class City
   reverse_geocoded_by :location
   
   # Searchkick.client.transport.logger = Logger.new("ES_City.log")
-  searchkick locations: ["location"], word_start: [:name]#, 
-  # settings: {
-  #   analysis: {
-  #     analyzer:{
-  #       my_greek:{
-  #         type: :custom,
-  #         tokenizer: :my_tokenizer,
-  #         filter: [:lower_case_filter],
-  #         char_filter: [:greek_char_downcase]
-  #       }
-  #     },
-  #     tokenizer:{
-  #       my_tokenizer:{
-  #         type: :standard,
-  #         max_token_length: 900
-  #       }
-  #     },
-  #     filter:{
-  #       lower_case_filter:{
-  #         type: :lowercase,
-  #         language: :greek
-  #       }
-  #     },
-  #     char_filter:{
-  #       greek_char_downcase:{
-  #         type: :mapping,
-  #         mappings: GreekChars::GreekNormalizer.char_map
-  #       }
-  #     }
-  #   }
-  # }, 
-  # mappings: {
-  #   city: {
-  #     properties:{
-  #       name: {
-  #         type: :string,
-  #         analyzer: :my_greek
-  #       }
-  #     }
-  #   }
-  # }
+  searchkick locations: ["location"], merge_mappings: true, word_start: [:name], text_start: [:name], 
+  settings: {
+    analysis: {
+      analyzer:{
+        my_greek:{
+          type: "custom",
+          tokenizer: "standard",
+          filter: ["lower_case_filter", "asciifolding", "searchkick_edge_ngram"],
+          char_filter: [:greek_char_downcase]
+        }
+      },
+      tokenizer:{
+        my_tokenizer:{
+          type: :standard,
+          max_token_length: 900
+        }
+      },
+      filter:{
+        lower_case_filter:{
+          type: :lowercase,
+          language: :greek
+        }
+      },
+      char_filter:{
+        greek_char_downcase:{
+          type: :mapping,
+          mappings: GreekChars::GreekNormalizer.char_map
+        }
+      }
+    }
+  }, 
+  mappings: {
+    city: {
+      properties:{
+        name: {
+          type: :string,
+          analyzer: :my_greek
+        }
+      }
+    }
+  }
   
   # include Tire::Model::Search
   # include Tire::Model::Callbacks  

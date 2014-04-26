@@ -67,6 +67,16 @@ namespace :es do
   task :update_cities do
     run "cd #{current_path} ; bundle exec rake environment tire:import:model CLASS='City' FORCE=true"
   end
+  
+  desc "Update Stations index"
+  task :update_stations do
+    run "cd #{current_path} ; bundle exec rake environment tire:import:model CLASS='Station' FORCE=true"
+  end
+
+  desc "Initialize Station Location"
+  task :initialize_station_location do
+    run "cd #{current_path} ; bundle exec rake tools:init_station_location"
+  end
 end
 
 namespace :deploy do
@@ -155,6 +165,11 @@ namespace :deploy do
     if remote_file_exists?("#{latest_release}/tmp/pids/unicorn.pid")
       run "kill -s USR2 `cat #{latest_release}/tmp/pids/unicorn.pid`"
     end
+  end
+
+  desc "Start APNServer"
+  task :start_apn, :except => { :no_release => true } do
+    run "cd #{current_path}/apns ; ./server"
   end
 
   desc "Start unicorn"
