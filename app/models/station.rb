@@ -83,7 +83,7 @@ class Station
     data["prices"] = prices.where(fuel_type:1).desc(:created_at).limit(1).map{|i| i.api_attributes }
     data
   end
-  
+private  
   def notify_devices
     price_entry = prices.where(:fuel_type=>1).last
     unless price_entry.nil?
@@ -91,10 +91,10 @@ class Station
       submitted = price_entry.submitted
 
 
+      notify = Icapnd::Notification.new
       favorites.each do |fav|
-        notify = Icapnd::Notification.new
         notify.device_token = fav.device.token
-        notify.alert = "#{address}: #{price_value} / #{submitted}"
+        notify.alert = "#{price_value} / #{submitted}"
         notify.sound = "default.aiff"
         notify.push  
       end
