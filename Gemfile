@@ -33,7 +33,7 @@ gem "redis"
 gem "em-synchrony"
 gem 'yajl-ruby'
 gem 'daemons'
-gem 'icapnd', :git => 'git@github.com:icleversoft/icapnd.git', '0.0.2'
+gem 'icapnd', :git => 'git@github.com:icleversoft/icapnd.git'
 #--------------------
 
 
