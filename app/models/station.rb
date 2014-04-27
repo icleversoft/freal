@@ -96,7 +96,8 @@ class Station
       favorites.each do |fav|
         notify.device_token = fav.device.token
         # notify.alert = "#{price_value} / #{submitted}"
-        notify.alert = "Price changed to: #{price_value}E"
+        # notify.alert = "Price changed to: #{price_value}E"
+        notify.alert = "#{address} - #{price_value}E"
         notify.badge = 0
         notify.sound = "default.aiff"
         notify.push  
