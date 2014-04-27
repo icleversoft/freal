@@ -95,7 +95,8 @@ class Station
       notify = Icapnd::Notification.new
       favorites.each do |fav|
         notify.device_token = fav.device.token
-        notify.alert = "#{price_value} / #{submitted}"
+        # notify.alert = "#{price_value} / #{submitted}"
+        notify.alert = "#{price_value}€"
         notify.badge = 0
         notify.sound = "default.aiff"
         notify.push  
