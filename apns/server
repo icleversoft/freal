@@ -2,7 +2,7 @@
 DAEMON="icapndaemon"
 PEM="/home/gstavrou/apps/freal/current/data/final.pem"
 LOG="/home/gstavrou/apps/freal/current/log/apns.log"
-
+#DAEMON="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../mygems/icapnd/bin/icapndaemon"
 echo "Running APN Broadcast Server..."
 ${DAEMON} --redis-host 127.0.0.1 --redis-port 6379 --log ${LOG} --pem ${PEM} --daemon --apn-host sandbox
 echo "Done"
