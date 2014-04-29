@@ -1,3 +1,6 @@
 [submodule "mygems/searchkick"]
 	path = mygems/searchkick
 	url = git@github.com:icleversoft/searchkick.git
+[submodule "mygems/icapnd"]
+	path = mygems/icapnd
+	url = git@github.com:icleversoft/icapnd.git
