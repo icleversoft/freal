@@ -22,7 +22,14 @@ class Api::V1::RegistrationController < Api::V1::BaseController
       station = Station.where(:id => params[:station_id]).first
       if !station.nil?
         if station.favorites.where(:station => station).first.nil?
-          Favorite.create(station: station, device: @device)
+          price = station.prices.where(:fuel_type=>1).last
+          if price.nil?
+            price = 0.0
+          else
+            price = price.price
+          end
+          
+          Favorite.create(station: station, device: @device, current_price: price)
           station.save
           @device.save
           render :json => {message: 'OK'}, status: 200

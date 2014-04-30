@@ -9,7 +9,7 @@ class Price
   end
   
   before_create :set_slug
-  field :price
+  field :price, type: Float
   field :fuel_type, :type => Integer
   field :submitted
   field :slug
