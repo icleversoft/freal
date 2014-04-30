@@ -95,6 +95,7 @@ class Station
       notify = Icapnd::Notification.new
       favorites.each do |fav|
         if fav.current_price != price_value
+          fav.update_attribute(:current_price, price_value)
           notify.device_token = fav.device.token
           notify.alert = "#{address} - #{price_value}E, #{submitted}"
           notify.badge = 0
