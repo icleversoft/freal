@@ -34,6 +34,8 @@ Freal::Application.routes.draw do
       get '/cities/ac/:query' => 'cities#autocomplete', format: :json
       get '/county/:id/municipalities' => 'counties#municipalities', format: :json
       
+      delete '/myfavorites/:token/:id' => 'cities#delete_favorite', format: :json
+      
       match '/nearme'   => 'cities#nearme', format: :json
       get '/mystation/:token/:id' => 'cities#mystation', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}
       get '/myfavorites/:token' => 'cities#myfavorites', format: :json#, :constraints => {:token => /[0-9a-f]{64}/}

@@ -32,7 +32,6 @@ class Api::V1::CitiesController < Api::V1::BaseController
     per_page = 10
     cities = City.all.asc(:name).page(page).per(per_page)
     values = cities.collect{|i| i.api_attributes}
-    # cities = City.search "*", order: {name: :asc}#, limit: per_page, offset: (page - 1)
     respond_with(cities: values, page: page, has_more: values.size == 10)
   end
   
@@ -44,22 +43,6 @@ class Api::V1::CitiesController < Api::V1::BaseController
     else
       respond_with(city: {name: city.name, code: city.code, location: location}, :stations => city.municipality.stations.where(:updated_at.gte=> 20.days.ago).collect{|i| i.api_attributes}, status: 200)
     end
-  end
-  
-  def index1
-    location = [params[:lat], params[:lon]].collect{|i| i.to_f}
-    # city = City.get_closest_cities(location).first
-    stations = Station.get_closest_stations(location)
-    if stations.empty? #city.nil?
-      respond_with(message: 'Not found any station', status: 400)
-    else
-      # stations = []
-      # cities.each{|s| s.city_municipality.each{|x| stations << x}}
-      # city = cities.first
-      respond_with(:location => location, :stations => stations.collect{|i| i.api_attributes}, status: 200)
-      # respond_with(:id => city._id, :name => city.name, :location => location, :stations => city.city_municipality, status: 200)
-    end
-    
   end
   
   def mystation
@@ -83,6 +66,15 @@ class Api::V1::CitiesController < Api::V1::BaseController
     end
   end
 
+  def delete_favorite
+    fav = @device.favorites.where(station_id: params[:id]).first
+    if !fav.nil?
+      fav.delete
+      render json: {msg: 'Favorite deleted'}, status: 200
+    else
+      render json: {msg: 'Favorite not found'}, status: 404
+    end
+  end
 private  
 
   def find_device
